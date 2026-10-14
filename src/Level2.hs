@@ -16,11 +16,15 @@ data Nat = Zero | Suc Nat
   deriving (Eq, Show)
 
 makeNat :: Int -> Nat
-makeNat = todo "2.1 make"
+makeNat n
+  | n == 0 = Zero
+  | n < 0 = error "Nat must be not negative"
+  | otherwise = Suc (makeNat (n-1))
 
 foldNat :: (a -> a) -> a -> Nat -> a
-foldNat = todo "2.1 fold"
-
+foldNat f z n = case n of
+  Zero -> z
+  Suc x -> foldNat f (f z) x
 
 -- 2.2. Другое бинарное дерево.
 --
@@ -33,9 +37,11 @@ data BinTree a = Empty | BinNode (BinTree a) a (BinTree a)
   deriving (Eq, Show)
 
 mapBinTree :: (a -> b) -> BinTree a -> BinTree b
-mapBinTree = todo "2.2 map"
+mapBinTree f t = case t of
+  Empty -> Empty
+  BinNode l a r -> BinNode (mapBinTree f l) (f a) (mapBinTree f r)
 
-bangAll t = todo "2.2 bang"
+bangAll = todo ""
 
 
 -- 2.3. Лексикографическое сравнение.
